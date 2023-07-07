@@ -1,0 +1,134 @@
+
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Mon application',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  String selectedOption = 'Rendez-vous';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/images.png'),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    "Utilisateur de l'application",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Élément',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    buildLabel('Rendez-vous'),
+                    buildLabel('Suivi'),
+                    buildLabel('Notification'),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Nombre',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    buildLabel('1'),
+                    buildLabel('2'),
+                    buildLabel('7'),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildRadioButton('Rendez-vous'),
+                    buildRadioButton('Suivi'),
+                    buildRadioButton('Notification'),
+                  ],
+                ),
+                Spacer(),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('Envoyer'),
+                ),
+                SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('Annuler'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildLabel(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4.0),
+      child: Text(text),
+    );
+  }
+
+  Widget buildRadioButton(String text) {
+    return Row(
+      children: [
+        Radio(
+          value: text,
+          groupValue: selectedOption,
+          onChanged: (value) {
+            setState(() {
+              selectedOption = value.toString();
+            });
+          },
+        ),
+        Text(text),
+      ],
+    );
+  }
+}
